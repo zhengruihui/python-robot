@@ -4,3 +4,4 @@
 .idea/python-robot.iml
 venv/lib/python2.7/site.pyc
 app/robot.pyc
+.idea/workspace.xml

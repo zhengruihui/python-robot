@@ -96,6 +96,7 @@ if (__name__ == "__main__"):
     s_host = "127.0.0.1"
     s_port = 56789
 
+
     while True:
         s.sendto("hello", (s_host, s_port))
 
