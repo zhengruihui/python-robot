@@ -5,6 +5,8 @@ import robot
 import thread
 import time
 import xml.sax
+import socket               # 导入 socket 模块
+from struct import *
 
 # 为线程定义一个函数
 def print_time(thread_name, delay):
@@ -80,7 +82,24 @@ class MovieHandler(xml.sax.ContentHandler):
 
 if (__name__ == "__main__"):
 
+
     # 重写 ContextHandler
     Handler = MovieHandler()
 
     parser = xml.sax.parse("movies.xml", Handler)
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # 创建 socket 对象
+    host = "127.0.0.1"  # 获取本地主机名
+    port = 12345
+    s.bind((host, port))  # 绑定端口
+
+    s_host = "127.0.0.1"
+    s_port = 56789
+
+    while True:
+        s.sendto("hello", (s_host, s_port))
+
+        data, addr = s.recvfrom(1024)  # 接收数据。
+        print '连接地址：', data, addr
+
+        s.sendto("hello", (s_host, s_port))
