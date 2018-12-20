@@ -1,106 +1,56 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import robot
-import thread
+import threading
 import time
 import xml.sax
-import socket               # 导入 socket 模块
+import socket
 from struct import *
 
-# 为线程定义一个函数
-def print_time(thread_name, delay):
-    count = 0
-    while True:
-        time.sleep(delay)
-        count += 1
-        print "%s: %s" % (thread_name, time.ctime(time.time()))
+import robotcontrol
 
 
-print "Hello word!"
+ip_qt = "127.0.0.1"  # qt的ip与端口
+port_qt = 01234
 
-employee = robot.Employee("zhengruihui", 31)
-employee.display_employee()
+ip_python = "127.0.0.1"  # python的ip与端口
+port_python = 56789
 
-# 创建两个线程
-try:
-    thread.start_new_thread(print_time, ("Thread-1", 2,))
-    thread.start_new_thread(print_time, ("Thread-2", 4,))
-except:
-    print "Error: unable to start thread"
+ip_aubot = "192.168.1.14"  # 机械手aubot的ip与端口
+port_aubot = 8899
 
 
-class MovieHandler(xml.sax.ContentHandler):
-    def __init__(self):
-        self.CurrentData = ""
-        self.type = ""
-        self.format = ""
-        self.year = ""
-        self.rating = ""
-        self.stars = ""
-        self.description = ""
+class QtData(threading.Thread):
+    def __init__(self, read_ip="127.0.0.1", read_port=01234, write_ip="127.0.0.1", write_port=56789):
+        threading.Thread.__init__(self)
+        self.read_ip = read_ip
+        self.read_port = read_port
+        self.write_ip = write_ip
+        self.write_port = write_port
+        self.read_list = [0, 0, 0, 0, 0, 0]
+        self.write_list = [0, 0, 0, 0.000]
 
-    # 元素开始事件处理
-    def startElement(self, tag, attributes):
-        self.CurrentData = tag
-        if tag == "movie":
-            print "*****Movie*****"
-            title = attributes["title"]
-            print "Title:", title
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.s.bind((read_ip, read_port))
 
-    # 元素结束事件处理
-    def endElement(self, tag):
-        if self.CurrentData == "type":
-            print "Type:", self.type
-        elif self.CurrentData == "format":
-            print "Format:", self.format
-        elif self.CurrentData == "year":
-            print "Year:", self.year
-        elif self.CurrentData == "rating":
-            print "Rating:", self.rating
-        elif self.CurrentData == "stars":
-            print "Stars:", self.stars
-        elif self.CurrentData == "description":
-            print "Description:", self.description
-        self.CurrentData = ""
-
-    # 内容事件处理
-    def characters(self, content):
-        if self.CurrentData == "type":
-            self.type = content
-        elif self.CurrentData == "format":
-            self.format = content
-        elif self.CurrentData == "year":
-            self.year = content
-        elif self.CurrentData == "rating":
-            self.rating = content
-        elif self.CurrentData == "stars":
-            self.stars = content
-        elif self.CurrentData == "description":
-            self.description = content
+    def run(self):
+        while True:
+            read_data, read_addr = self.s.recvfrom(1024)
+            self.read_list = unpack('HHHHLf', read_data)
+            print self.read_list[0]
+            print self.read_list[1]
+            print self.read_list[2]
+            print self.read_list[3]
+            print self.read_list[4]
+            print self.read_list[5]
 
 
-if (__name__ == "__main__"):
+if __name__ == '__main__':
+    # read_list = {0, 0, 0, 0, 0, 0.000}
+    # data = "abcdefgabcdfaaaa"
+    # read_list[0], read_list[1], read_list[2], read_list[3], read_list[4], read_list[5] = unpack('HHHHLf', data)
 
+    qt_data = QtData()
+    qt_data.start()
+    qt_data.join()
 
-    # 重写 ContextHandler
-    Handler = MovieHandler()
-
-    parser = xml.sax.parse("movies.xml", Handler)
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # 创建 socket 对象
-    host = "127.0.0.1"  # 获取本地主机名
-    port = 12345
-    s.bind((host, port))  # 绑定端口
-
-    s_host = "127.0.0.1"
-    s_port = 56789
-
-
-    while True:
-        s.sendto("hello", (s_host, s_port))
-
-        data, addr = s.recvfrom(1024)  # 接收数据。
-        print '连接地址：', data, addr
-
-        s.sendto("hello", (s_host, s_port))
