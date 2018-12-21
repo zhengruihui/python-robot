@@ -1,36 +1,52 @@
-<collection shelf="New Arrivals">
-<movie title="Enemy Behind">
-   <type>War, Thriller</type>
-   <format>DVD</format>
-   <year>2003</year>
-   <rating>PG</rating>
-   <stars>10</stars>
-   <description>Talk about a US-Japan war</description>
-</movie>
-<movie title="Transformers">
-   <type>Anime, Science Fiction</type>
-   <format>DVD</format>
-   <year>1989</year>
-   <rating>R</rating>
-   <stars>8</stars>
-   <description>A schientific fiction</description>
-</movie>
-   <movie title="Trigun">
-   <type>Anime, Action</type>
-   <format>DVD</format>
-   <episodes>4</episodes>
-   <rating>PG</rating>
-   <stars>10</stars>
-   <description>Vash the Stampede!</description>
-</movie>
-<movie title="Ishtar">
-   <type>Comedy</type>
-   <format>VHS</format>
-   <rating>PG</rating>
-   <stars>2</stars>
-   <description>Viewable boredom</description>
-</movie>
-</collection>
+<multi-process name="dedibot">
+   <assembly-line id="1" times="10">
+      <process name="FDM">
+         <station comment="机械臂在工位停止的位置">
+            <motion comment="机械臂在的地轨坐标">20.0</motion>>
+            <coordidate comment="机械臂在工位停止时的姿态">
+               <joint1>-0.000003</joint1>
+               <joint2>-0.127267</joint2>
+               <joint3>-1.321122</joint3>
+               <joint4>0.376934</joint4>
+               <joint5>-1.570796</joint5>
+               <joint6>-0.000008</joint6>
+            </coordidate>
+         </station>
+         <load>
+            <coordidate>
+               <joint1>-0.000003</joint1>
+               <joint2>-0.127267</joint2>
+               <joint3>-1.321122</joint3>
+               <joint4>0.376934</joint4>
+               <joint5>-1.570796</joint5>
+               <joint6>-0.000008</joint6>
+            </coordidate>
+         </load>
+         <upload>
+            <coordidate>
+               <joint1>-0.000003</joint1>
+               <joint2>-0.127267</joint2>
+               <joint3>-1.321122</joint3>
+               <joint4>0.376934</joint4>
+               <joint5>-1.570796</joint5>
+               <joint6>-0.000008</joint6>
+            </coordidate>
+         </upload>
+      </process>
+      <process name="CNC">
+         <coordidate>
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+      </process>
+
+   </assembly-line>
+</multi-process>
+
 
 
 class MovieHandler(xml.sax.ContentHandler):
