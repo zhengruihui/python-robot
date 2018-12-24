@@ -1,5 +1,36 @@
-<multi-process name="dedibot">
-   <assembly-line id="1" times="10">
+<multi_process name="dedibot">
+   <go_home>
+         <motion comment="地轨原点坐标">0.0</motion>
+         <coordidate comment="机械臂在工位停止时的姿态">
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+      </go_home>
+   <assembly_line id="1" times="10">
+      <get_platform>
+         <motion comment="机械臂在的地轨坐标">50.0</motion>
+         <coordidate comment="机械臂在工位停止时的姿态">
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+         <get></get>
+         <coordidate comment="机械臂在工位停止时的姿态">
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+      </get_platform>
       <process name="FDM">
          <station comment="机械臂在工位停止的位置">
             <motion comment="机械臂在的地轨坐标">20.0</motion>>
@@ -43,59 +74,70 @@
             <joint6>-0.000008</joint6>
          </coordidate>
       </process>
-
-   </assembly-line>
-</multi-process>
-
-
-
-class MovieHandler(xml.sax.ContentHandler):
-    def __init__(self):
-        self.CurrentData = ""
-        self.type = ""
-        self.format = ""
-        self.year = ""
-        self.rating = ""
-        self.stars = ""
-        self.description = ""
-
-    # 元素开始事件处理
-    def startElement(self, tag, attributes):
-        self.CurrentData = tag
-        if tag == "movie":
-            print "*****Movie*****"
-            title = attributes["title"]
-            print "Title:", title
-
-    # 元素结束事件处理
-    def endElement(self, tag):
-        if self.CurrentData == "type":
-            print "Type:", self.type
-        elif self.CurrentData == "format":
-            print "Format:", self.format
-        elif self.CurrentData == "year":
-            print "Year:", self.year
-        elif self.CurrentData == "rating":
-            print "Rating:", self.rating
-        elif self.CurrentData == "stars":
-            print "Stars:", self.stars
-        elif self.CurrentData == "description":
-            print "Description:", self.description
-        self.CurrentData = ""
-
-    # 内容事件处理
-    def characters(self, content):
-        if self.CurrentData == "type":
-            self.type = content
-        elif self.CurrentData == "format":
-            self.format = content
-        elif self.CurrentData == "year":
-            self.year = content
-        elif self.CurrentData == "rating":
-            self.rating = content
-        elif self.CurrentData == "stars":
-            self.stars = content
-        elif self.CurrentData == "description":
-            self.description = content
-
-    parser = xml.sax.parse("process.xml", MovieHandler())
+   </assembly_line>
+   <assembly_line id="2" times="10">
+      <get_platform>
+         <motion comment="机械臂在的地轨坐标">50.0</motion>
+         <coordidate comment="机械臂在工位停止时的姿态">
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+         <get></get>
+         <coordidate comment="机械臂在工位停止时的姿态">
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+      </get_platform>
+      <process name="FDM">
+         <station comment="机械臂在工位停止的位置">
+            <motion comment="机械臂在的地轨坐标">20.0</motion>>
+            <coordidate comment="机械臂在工位停止时的姿态">
+               <joint1>-0.000003</joint1>
+               <joint2>-0.127267</joint2>
+               <joint3>-1.321122</joint3>
+               <joint4>0.376934</joint4>
+               <joint5>-1.570796</joint5>
+               <joint6>-0.000008</joint6>
+            </coordidate>
+         </station>
+         <load>
+            <coordidate>
+               <joint1>-0.000003</joint1>
+               <joint2>-0.127267</joint2>
+               <joint3>-1.321122</joint3>
+               <joint4>0.376934</joint4>
+               <joint5>-1.570796</joint5>
+               <joint6>-0.000008</joint6>
+            </coordidate>
+         </load>
+         <upload>
+            <coordidate>
+               <joint1>-0.000003</joint1>
+               <joint2>-0.127267</joint2>
+               <joint3>-1.321122</joint3>
+               <joint4>0.376934</joint4>
+               <joint5>-1.570796</joint5>
+               <joint6>-0.000008</joint6>
+            </coordidate>
+         </upload>
+      </process>
+      <process name="CNC">
+         <coordidate>
+            <joint1>-0.000003</joint1>
+            <joint2>-0.127267</joint2>
+            <joint3>-1.321122</joint3>
+            <joint4>0.376934</joint4>
+            <joint5>-1.570796</joint5>
+            <joint6>-0.000008</joint6>
+         </coordidate>
+      </process>
+   </assembly_line>
+</multi_process>

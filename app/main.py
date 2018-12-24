@@ -26,8 +26,8 @@ class SocketManage:
         self.read_port = read_port
         self.write_ip = write_ip
         self.write_port = write_port
-        self.read_list = [0, 0, 0, 0, 0, 0]
-        self.write_list = [0, 0, 0, 0.000]
+        self.read_list = [0]
+        self.write_list = [0]
 
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.s.bind((read_ip, read_port))
@@ -73,10 +73,31 @@ class MultiProcess(SocketManage):
         pass
 
 
+class RobotArm:
+    def __init__(self):
+        self.move_track = []
+
+
 if __name__ == '__main__':
 
-    multi_process = MultiProcess()
+    # multi_process = MultiProcess()
 
-    while True:
-        read_list = multi_process.get_read_list()
-        pass
+    waypoint1 = [0, 1, 2, 3, 4, 5]
+
+    waypoint2 = [0.1, 1.2, 2.1, 3.6, 4.009, 5.895]
+
+    waypoint3 = [0.456, 1.2456, 2.4568, 3.3452, 4.367, 5.2577]
+
+    move_track = [waypoint1, waypoint2, waypoint3]
+
+    multiprocess = []
+
+    multiprocess.append(move_track)
+    multiprocess.append(move_track)
+
+    for waypoint in multiprocess:
+        print waypoint[1][0]
+
+    # while True:
+        # read_list = multi_process.get_read_list()
+        # pass
