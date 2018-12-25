@@ -2141,13 +2141,13 @@ def test(test_count):
             logger.info("connect server{0}:{1} failed.".format(ip, port))
         else:
             # # 重新上电
-            #robot.robot_shutdown()
+            # robot.robot_shutdown()
             #
             # # 上电
-            #robot.robot_startup()
+            # robot.robot_startup()
             #
             # # 设置碰撞等级
-            robot.set_collision_class(7)
+            # robot.set_collision_class(7)
 
             # 设置工具端电源为１２ｖ
             # robot.set_tool_power_type(RobotToolPowerType.OUT_12V)
@@ -2210,7 +2210,7 @@ def test(test_count):
                 logger.info(ik_result)
 
                 # 轴动1
-                joint_radian = (0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000)
+                joint_radian = (90.617670/57.296, -54.296/57.296, 18.04/57.296, 70.78/57.296, 85.212/57.296, -0.000630/57.296)
                 logger.info("move joint to {0}".format(joint_radian))
                 robot.move_joint(joint_radian)
 

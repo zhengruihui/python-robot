@@ -27,7 +27,7 @@ class MultiProcess:
 
 if __name__ == '__main__':
 
-    multi_process = MultiProcess()
+    # multi_process = MultiProcess()
 
     # 使用minidom解析器打开 XML 文档
     DOMTree = xml.dom.minidom.parse("process.xml")
@@ -36,19 +36,32 @@ if __name__ == '__main__':
         print "Root element : %s" % multi_process.getAttribute("name")
 
     # 在集合中获取所有流水线
-    assembly_lines = multi_process.getElementsByTagName("assembly_line")
-
-    for assembly_line in assembly_lines:
+    assembly_line_list = multi_process.getElementsByTagName("assembly_line")
+    for assembly_line in assembly_line_list:
         print assembly_line.getAttribute("id")
         print assembly_line.getAttribute("times")
 
-        get_platform = assembly_line.getElementsByTagName("get_platform")[0]
-        motion = get_platform.getElementsByTagName("motion")[0]
-        print motion.getAttribute("comment")
-        print motion.childNodes[0].data
+        get_platform_list = assembly_line.getElementsByTagName("get_platform")
+        for get_platform in get_platform_list:
+            motion_list = get_platform.getElementsByTagName("motion")
+            for motion in motion_list:
+                print motion.getAttribute("comment")
+                child_list = motion.childNodes
+                for child in child_list:
+                    print child.nodeValue
 
+            coordidate_list = get_platform.getElementsByTagName("coordidate")
+            for coordidate in coordidate_list:
+                print coordidate.getAttribute("joint1")
+                print coordidate.getAttribute("joint2")
+                print coordidate.getAttribute("joint3")
+                print coordidate.getAttribute("joint4")
+                print coordidate.getAttribute("joint5")
+                print coordidate.getAttribute("joint6")
 
     print "parse done"
+
+
 
 
 
