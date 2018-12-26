@@ -7,6 +7,9 @@ import xml.sax
 import socket
 from struct import *
 
+from xml.dom.minidom import parse
+import xml.dom.minidom
+
 import robotcontrol
 
 
@@ -38,6 +41,7 @@ class SocketManage:
         try:
             thread.start_new_thread(self.read_thread, ())
             thread.start_new_thread(self.write_thread, ())
+
         except:
             print "Error: unable to start thread"
 
@@ -67,37 +71,121 @@ class SocketManage:
         self.write_lock.release()
 
 
-class MultiProcess(SocketManage):
+class Get:
     def __init__(self):
-        SocketManage.__init__(self)
         pass
 
 
-class RobotArm:
+class Put:
     def __init__(self):
-        self.move_track = []
+        pass
 
+
+class Start:
+    def __init__(self):
+        pass
+
+
+class Coordidate:
+    def __init__(self):
+        pass
+
+
+class Process:
+    def __init__(self):
+        pass
+
+
+class AssemblyLine:
+    def __init__(self):
+        pass
+
+
+class MultiProcess:
+    def __init__(self):
+        pass
+
+
+class MultiProcessHandle:
+    def __init__(self, multi_process):
+        self.multi_process = multi_process
+
+        # 每条流水线一个线程
+        for i in range(len(multi_process.assembly_line_list)):
+            try:
+                thread.start_new_thread(self.assembly_line_handle, (multi_process.assembly_line_list[i], ))
+            except:
+                print "Error: unable to start thread"
+
+    def assembly_line_handle(self, assembly_line):
+        while True:
+            for count in range(int(assembly_line.times)):
+                print assembly_line.id
+                for process in assembly_line.process_list:
+                    print process.name
+
+            thread.exit_thread()
+
+
+def parse_xml(xml_name, multi_process):
+    # 使用minidom解析器打开 XML 文档
+    dom_tree = xml.dom.minidom.parse(xml_name)
+    multi_process_xml = dom_tree.documentElement
+    multi_process.assembly_line_list = []
+    multi_process.name = multi_process_xml.getAttribute("name")
+    assembly_line_xml_list = multi_process_xml.getElementsByTagName("assembly_line")
+    for assembly_line_xml in assembly_line_xml_list:
+        assembly_line = AssemblyLine()
+        assembly_line.process_list = []
+        assembly_line.id = assembly_line_xml.getAttribute("id")
+        assembly_line.times = assembly_line_xml.getAttribute("times")
+        multi_process.assembly_line_list.append(assembly_line)
+        child_0_list = assembly_line_xml.childNodes
+        for child_0 in child_0_list:    # level 0
+            if child_0.nodeType == child_0.ELEMENT_NODE:
+                if child_0.nodeName == "process":
+                    process = Process()
+                    process.list = []
+                    process.name = child_0.getAttribute("name")
+                    assembly_line.process_list.append(process)
+                    child_1_list = child_0.childNodes
+                    for child_1 in child_1_list:    # level 1
+                        if child_1.nodeType == child_1.ELEMENT_NODE:
+                            if child_1.nodeName == "coordidate":
+                                coordidate = Coordidate()
+                                coordidate.name = child_1.nodeName
+                                coordidate.joint0 = child_1.getAttribute("joint0")
+                                coordidate.joint1 = child_1.getAttribute("joint1")
+                                coordidate.joint2 = child_1.getAttribute("joint2")
+                                coordidate.joint3 = child_1.getAttribute("joint3")
+                                coordidate.joint4 = child_1.getAttribute("joint4")
+                                coordidate.joint5 = child_1.getAttribute("joint5")
+                                coordidate.joint6 = child_1.getAttribute("joint6")
+                                process.list.append(coordidate)
+
+                            if child_1.nodeName == "get":
+                                get = Get()
+                                get.name = child_1.nodeName
+                                process.list.append(get)
+
+                            if child_1.nodeName == "put":
+                                put = Put()
+                                put.name = child_1.nodeName
+                                process.list.append(put)
+
+                            if child_1.nodeName == "start":
+                                start = Start()
+                                start.name = child_1.nodeName
+                                process.list.append(start)
+    print "parse done"
 
 if __name__ == '__main__':
 
-    # multi_process = MultiProcess()
+    multi_process = MultiProcess()
+    parse_xml("process.xml", multi_process)
+    multi_process_handle = MultiProcessHandle(multi_process)
 
-    waypoint1 = [0, 1, 2, 3, 4, 5]
+    while True:
+        pass
 
-    waypoint2 = [0.1, 1.2, 2.1, 3.6, 4.009, 5.895]
 
-    waypoint3 = [0.456, 1.2456, 2.4568, 3.3452, 4.367, 5.2577]
-
-    move_track = [waypoint1, waypoint2, waypoint3]
-
-    multiprocess = []
-
-    multiprocess.append(move_track)
-    multiprocess.append(move_track)
-
-    for waypoint in multiprocess:
-        print waypoint[1][0]
-
-    # while True:
-        # read_list = multi_process.get_read_list()
-        # pass

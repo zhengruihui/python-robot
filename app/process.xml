@@ -1,37 +1,40 @@
 <multi_process name="dedibot">
    <go_home>
-         <motion comment="地轨原点坐标">0.0</motion>
-         <coordidate comment="机械臂在工位停止时的姿态">
-            <joint1>-0.000003</joint1>
-            <joint2>-0.127267</joint2>
-            <joint3>-1.321122</joint3>
-            <joint4>0.376934</joint4>
-            <joint5>-1.570796</joint5>
-            <joint6>-0.000008</joint6>
-         </coordidate>
-      </go_home>
-   <assembly_line id="1" times="10">
-      <get_platform>
-         <motion comment="机械臂在的地轨坐标">50.0</motion>
-         <coordidate joint1="0.112233" joint2="0.112234" joint3="0.112235" joint4="0.112236" joint5="0.112237" joint6="0.112238"/>
+      <motion comment="地轨原点坐标">0.0</motion>
+      <coordidate joint1="0.000" joint2="0.000" joint3="0.000" joint4="0.000" joint5="0.000" joint6="0.000"/>
+      <coordidate joint1="0.000" joint2="0.000" joint3="0.000" joint4="0.000" joint5="0.000" joint6="0.000"/>
+   </go_home>
+   <assembly_line id="1" times="50">
+      <process name="PLATFORM">
+         <coordidate joint0="20" joint1="0.112233" joint2="0.112234" joint3="0.112235" joint4="0.112236" joint5="0.112237" joint6="0.112238"/>
          <get></get>
-         <coordidate joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
-      </get_platform>
+         <coordidate joint0="20" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+      </process>
       <process name="FDM">
-         <station comment="机械臂在工位停止的位置">
-            <motion comment="机械臂在的地轨坐标">20.0</motion>>
-            <coordidate joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
-         </station>
-         <load>
-            <coordidate joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
-         </load>
-         <upload>
-            <coordidate joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
-         </upload>
+         <coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <put></put>
+         <coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <start></start>
       </process>
       <process name="CNC">
-         <coordidate joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <coordidate joint0="25" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
       </process>
    </assembly_line>
 
+   <assembly_line id="2" times="20">
+      <process name="PLATFORM">
+         <coordidate joint0="20" joint1="0.112233" joint2="0.112234" joint3="0.112235" joint4="0.112236" joint5="0.112237" joint6="0.112238"/>
+         <get></get>
+         <coordidate joint0="20" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+      </process>
+      <process name="FDM">
+         <coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <put></put>
+         <coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <start></start>
+      </process>
+      <process name="CNC">
+         <coordidate joint0="25" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+      </process>
+   </assembly_line>
 </multi_process>
