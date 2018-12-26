@@ -119,7 +119,7 @@ class MultiProcessHandle:
 
     def assembly_line_handle(self, assembly_line):
         while True:
-            for count in range(int(assembly_line.times)):
+            for i in range(assembly_line.times):
                 print assembly_line.id
                 for process in assembly_line.process_list:
                     print process.name
@@ -138,7 +138,7 @@ def parse_xml(xml_name, multi_process):
         assembly_line = AssemblyLine()
         assembly_line.process_list = []
         assembly_line.id = assembly_line_xml.getAttribute("id")
-        assembly_line.times = assembly_line_xml.getAttribute("times")
+        assembly_line.times = int(assembly_line_xml.getAttribute("times"))
         multi_process.assembly_line_list.append(assembly_line)
         child_0_list = assembly_line_xml.childNodes
         for child_0 in child_0_list:    # level 0
@@ -154,13 +154,13 @@ def parse_xml(xml_name, multi_process):
                             if child_1.nodeName == "coordidate":
                                 coordidate = Coordidate()
                                 coordidate.name = child_1.nodeName
-                                coordidate.joint0 = child_1.getAttribute("joint0")
-                                coordidate.joint1 = child_1.getAttribute("joint1")
-                                coordidate.joint2 = child_1.getAttribute("joint2")
-                                coordidate.joint3 = child_1.getAttribute("joint3")
-                                coordidate.joint4 = child_1.getAttribute("joint4")
-                                coordidate.joint5 = child_1.getAttribute("joint5")
-                                coordidate.joint6 = child_1.getAttribute("joint6")
+                                coordidate.joint0 = float(child_1.getAttribute("joint0"))
+                                coordidate.joint1 = float(child_1.getAttribute("joint1"))
+                                coordidate.joint2 = float(child_1.getAttribute("joint2"))
+                                coordidate.joint3 = float(child_1.getAttribute("joint3"))
+                                coordidate.joint4 = float(child_1.getAttribute("joint4"))
+                                coordidate.joint5 = float(child_1.getAttribute("joint5"))
+                                coordidate.joint6 = float(child_1.getAttribute("joint6"))
                                 process.list.append(coordidate)
 
                             if child_1.nodeName == "get":
