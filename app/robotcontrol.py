@@ -2141,10 +2141,10 @@ def test(test_count):
             logger.info("connect server{0}:{1} failed.".format(ip, port))
         else:
             # # 重新上电
-            # robot.robot_shutdown()
+            robot.robot_shutdown()
             #
             # # 上电
-            # robot.robot_startup()
+            robot.robot_startup()
             #
             # # 设置碰撞等级
             # robot.set_collision_class(7)
@@ -2201,7 +2201,7 @@ def test(test_count):
                 logger.info(robot.get_joint_maxacc())
 
                 # 正解测试
-                fk_ret = robot.forward_kin((-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008))
+                fk_ret = robot.forward_kin((0.541678, 0.225068, -0.948709, 0.397018, -1.570800, 0.541673))
                 logger.info(fk_ret)
 
                 # 逆解
@@ -2245,12 +2245,16 @@ def test(test_count):
                 joint_radian = (-0.037186, -0.224307, -1.398285, 0.396819, -1.570796, -0.037191)
                 robot.add_waypoint(joint_radian)
 
+                joint_radian = (90.617670 / 57.296, -54.296 / 57.296, 18.04 / 57.296, 70.78 / 57.296, 85.212 / 57.296, -0.000630 / 57.296)
+                robot.add_waypoint(joint_radian)
+
+                robot.set_blend_radius(0.01)
                 # 设置圆运动圈数
-                robot.set_circular_loop_times(3)
+                robot.set_circular_loop_times(1)
 
                 # 圆弧运动
                 logger.info("move_track ARC_CIR")
-                robot.move_track(RobotMoveTrackType.ARC_CIR)
+                robot.move_track(RobotMoveTrackType.CARTESIAN_MOVEP)
 
                 # 清除所有已经设置的全局路点
                 robot.remove_all_waypoint()
@@ -2300,7 +2304,7 @@ def step_test():
     try:
 
         # 链接服务器
-        ip = 'localhost'
+        ip = '192.168.1.14'
         port = 8899
         result = robot.connect(ip, port)
 
@@ -2316,31 +2320,35 @@ def step_test():
             # 设置碰撞等级
             robot.set_collision_class(7)
 
-            # # 初始化全局配置文件
-            # robot.init_profile()
-            #
-            # # logger.info(robot.get_board_io_config(RobotIOType.User_DI))
-            #
-            # # 获取当前位置
-            # logger.info(robot.get_current_waypoint())
-            #
-            # joint_radian = (0, 0, 0, 0, 0, 0)
-            # # 轴动到初始位置
+            # 初始化全局配置文件
+            robot.init_profile()
+
+            # logger.info(robot.get_board_io_config(RobotIOType.User_DI))
+
+            # 获取当前位置
+            logger.info(robot.get_current_waypoint())
+
+            joint_radian = (0, 0, 0, 0, 0, 0)
+            # 轴动到初始位置
+            robot.move_joint(joint_radian)
+
+            joint_radian = (0.541678, 0.225068, -0.948709, 0.397018, -1.570800, 0.541673)
+            logger.info("move joint to {0}".format(joint_radian))
+            robot.move_joint(joint_radian)
+
+            # 沿Ｚ轴运动0.1毫米
+            current_pos = robot.get_current_waypoint()
+
+            current_pos['pos'][2] -= 0.001
+
+            ik_result = robot.inverse_kin(current_pos['joint'], current_pos['pos'], current_pos['ori'])
+            logger.info(ik_result)
+
+            # joint_radian = (0.541678, 0.225068, -0.948709, 0.397018, -1.570800, 0.541673)
+            # logger.info("move joint to {0}".format(joint_radian))
             # robot.move_joint(joint_radian)
-            #
-            # # 沿Ｚ轴运动0.1毫米
-            # current_pos = robot.get_current_waypoint()
-            #
-            # current_pos['pos'][2] -= 0.001
-            #
-            # ik_result = robot.inverse_kin(current_pos['joint'], current_pos['pos'], current_pos['ori'])
-            # logger.info(ik_result)
-            #
-            # # joint_radian = (0.541678, 0.225068, -0.948709, 0.397018, -1.570800, 0.541673)
-            # # logger.info("move joint to {0}".format(joint_radian))
-            # # robot.move_joint(joint_radian)
-            #
-            # robot.move_line(ik_result['joint'])
+
+            robot.move_line(ik_result['joint'])
 
             # 断开服务器链接
             robot.disconnect()
@@ -2380,7 +2388,7 @@ def excit_traj_track_test():
     try:
 
         # 链接服务器
-        ip = 'localhost'
+        ip = '192.168.1.14'
         port = 8899
         result = robot.connect(ip, port)
 
@@ -2451,7 +2459,7 @@ def move_rotate_test():
     try:
 
         # 链接服务器
-        ip = 'localhost'
+        ip = '192.168.1.14'
         port = 8899
         result = robot.connect(ip, port)
 
@@ -2461,8 +2469,8 @@ def move_rotate_test():
 
             # 重新上电
             # robot.robot_shutdown()
-
-            # 上电
+            #
+            # # 上电
             # robot.robot_startup()
 
             # 设置碰撞等级
@@ -2532,5 +2540,8 @@ def move_rotate_test():
 
 
 if __name__ == '__main__':
-    test(1)
+    # test(1)
+    # move_rotate_test()
+    # excit_traj_track_test()
+    step_test()
     logger.info("test completed")

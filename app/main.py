@@ -75,21 +75,33 @@ class Get:
     def __init__(self):
         pass
 
+    @staticmethod
+    def get():
+        print "get"
 
 class Put:
     def __init__(self):
         pass
 
+    @staticmethod
+    def put():
+        print "put"
 
 class Start:
     def __init__(self):
         pass
 
+    @staticmethod
+    def start():
+        print "start"
 
 class Coordidate:
     def __init__(self):
         pass
 
+    @staticmethod
+    def coordidate_handle(joint_list):
+        print joint_list
 
 class Process:
     def __init__(self):
@@ -104,27 +116,6 @@ class AssemblyLine:
 class MultiProcess:
     def __init__(self):
         pass
-
-
-class MultiProcessHandle:
-    def __init__(self, multi_process):
-        self.multi_process = multi_process
-
-        # 每条流水线一个线程
-        for i in range(len(multi_process.assembly_line_list)):
-            try:
-                thread.start_new_thread(self.assembly_line_handle, (multi_process.assembly_line_list[i], ))
-            except:
-                print "Error: unable to start thread"
-
-    def assembly_line_handle(self, assembly_line):
-        while True:
-            for i in range(assembly_line.times):
-                print assembly_line.id
-                for process in assembly_line.process_list:
-                    print process.name
-
-            thread.exit_thread()
 
 
 def parse_xml(xml_name, multi_process):
@@ -145,7 +136,7 @@ def parse_xml(xml_name, multi_process):
             if child_0.nodeType == child_0.ELEMENT_NODE:
                 if child_0.nodeName == "process":
                     process = Process()
-                    process.list = []
+                    process.handle_list = []
                     process.name = child_0.getAttribute("name")
                     assembly_line.process_list.append(process)
                     child_1_list = child_0.childNodes
@@ -154,30 +145,69 @@ def parse_xml(xml_name, multi_process):
                             if child_1.nodeName == "coordidate":
                                 coordidate = Coordidate()
                                 coordidate.name = child_1.nodeName
-                                coordidate.joint0 = float(child_1.getAttribute("joint0"))
-                                coordidate.joint1 = float(child_1.getAttribute("joint1"))
-                                coordidate.joint2 = float(child_1.getAttribute("joint2"))
-                                coordidate.joint3 = float(child_1.getAttribute("joint3"))
-                                coordidate.joint4 = float(child_1.getAttribute("joint4"))
-                                coordidate.joint5 = float(child_1.getAttribute("joint5"))
-                                coordidate.joint6 = float(child_1.getAttribute("joint6"))
-                                process.list.append(coordidate)
+                                coordidate.joint_list = []
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint0")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint1")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint2")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint3")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint4")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint5")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint6")))
+
+                                process.handle_list.append(coordidate)
 
                             if child_1.nodeName == "get":
                                 get = Get()
                                 get.name = child_1.nodeName
-                                process.list.append(get)
+                                process.handle_list.append(get)
 
                             if child_1.nodeName == "put":
                                 put = Put()
                                 put.name = child_1.nodeName
-                                process.list.append(put)
+                                process.handle_list.append(put)
 
                             if child_1.nodeName == "start":
                                 start = Start()
                                 start.name = child_1.nodeName
-                                process.list.append(start)
+                                process.handle_list.append(start)
     print "parse done"
+
+
+class MultiProcessHandle:
+    def __init__(self, multi_process):
+        self.multi_process = multi_process
+
+        # 每条流水线一个线程
+        for i in range(len(self.multi_process.assembly_line_list)):
+            try:
+                thread.start_new_thread(self.assembly_line_handle, (self.multi_process.assembly_line_list[i], ))
+            except:
+                print "Error: unable to start thread"
+
+    @staticmethod
+    def assembly_line_handle(assembly_line):
+        while True:
+            for i in range(assembly_line.times):
+                process_list = assembly_line.process_list
+                for process in process_list:
+                    handle_list = process.handle_list
+                    for handle in handle_list:
+                        if handle.name == "coordidate":
+                            Coordidate.coordidate_handle(handle.joint_list)
+
+                        if handle.name == "get":
+                            Get.get()
+
+                        if handle.name == "put":
+                            Put.put()
+
+                        if handle.name == "start":
+                            Start.start()
+
+
+
+            thread.exit_thread()
+
 
 if __name__ == '__main__':
 
