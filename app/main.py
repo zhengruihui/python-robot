@@ -98,6 +98,8 @@ class FDMPrintHandle:
     def __init__(self):
         pass
 
+    def pdm_print(self):
+        print "fdm_print"
 
 class Start:
     def __init__(self):
@@ -116,14 +118,27 @@ class Robot:
 
 class RobotHandle:
     def __init__(self):
-        pass
+        self.robot_thread = thread.allocate()
         # self.robot = robot_init()
 
     def move_joint(self, joint_list):
+        self.robot_thread.acquire()
         print joint_list
-        # joint_radian = joint_list[1:7]
         # logger.info("move joint to {0}".format(joint_radian))
-        # self.robot.move_joint(joint_radian)
+        # self.robot.move_joint(oint_list[1:7])
+        self.robot_thread.release()
+
+    def get_platform(self):
+        self.robot_thread.acquire()
+        print "get_platform"
+        self.robot_thread.release()
+
+    def put_platform(self):
+        self.robot_thread.acquire()
+        print "put_platform"
+
+        self.robot_thread.release()
+
 
 
 class AssemblyLine:
@@ -235,13 +250,13 @@ class MultiProcessHandle:
                         self.robot_handle.move_joint(process.joint_list)
 
                     if process.name == "get_platform":
-                        print "get_platform"
+                        self.robot_handle.get_platform()
 
                     if process.name == "put_latform":
-                        print "put_latform"
+                        self.robot_handle.put_platform()
 
                     if process.name == "fdm_print":
-                        print "fdm_print"
+                        self.fdm_print_handle.pdm_print()
 
                 thread.exit_thread()
 
