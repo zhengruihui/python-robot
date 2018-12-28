@@ -6,11 +6,9 @@ import time
 import xml.sax
 import socket
 from struct import *
-
+from robotcontrol import *
 from xml.dom.minidom import parse
 import xml.dom.minidom
-
-import robotcontrol
 
 
 ip_qt = "127.0.0.1"  # qt的ip与端口
@@ -95,13 +93,22 @@ class Start:
     def start():
         print "start"
 
+
 class Coordidate:
     def __init__(self):
         pass
 
-    @staticmethod
-    def coordidate_handle(joint_list):
-        print joint_list
+
+class CoordidateHandle:
+    def __init__(self):
+        self.robot = robot_init()
+
+    def move_joint(self, joint_list):
+        joint_radian = joint_list[1:7]
+        logger.info("move joint to {0}".format(joint_radian))
+        self.robot.move_joint(joint_radian)
+
+
 
 class Process:
     def __init__(self):
@@ -146,13 +153,13 @@ def parse_xml(xml_name, multi_process):
                                 coordidate = Coordidate()
                                 coordidate.name = child_1.nodeName
                                 coordidate.joint_list = []
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint0")))
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint1")))
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint2")))
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint3")))
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint4")))
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint5")))
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint6")))
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint0")) / 57.2957805)
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint1")) / 57.2957805)
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint2")) / 57.2957805)
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint3")) / 57.2957805)
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint4")) / 57.2957805)
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint5")) / 57.2957805)
+                                coordidate.joint_list.append(float(child_1.getAttribute("joint6")) / 57.2957805)
 
                                 process.handle_list.append(coordidate)
 
@@ -176,6 +183,8 @@ def parse_xml(xml_name, multi_process):
 class MultiProcessHandle:
     def __init__(self, multi_process):
         self.multi_process = multi_process
+        self.robot_lock = thread.allocate()
+        self.coordidate_handle = CoordidateHandle()
 
         # 每条流水线一个线程
         for i in range(len(self.multi_process.assembly_line_list)):
@@ -184,16 +193,16 @@ class MultiProcessHandle:
             except:
                 print "Error: unable to start thread"
 
-    @staticmethod
-    def assembly_line_handle(assembly_line):
+    def assembly_line_handle(self, assembly_line):
         while True:
             for i in range(assembly_line.times):
                 process_list = assembly_line.process_list
                 for process in process_list:
-                    handle_list = process.handle_list
+                    handle_list = process.handle_lis
                     for handle in handle_list:
+                        self.robot_lock.acquire()
                         if handle.name == "coordidate":
-                            Coordidate.coordidate_handle(handle.joint_list)
+                            self.coordidate_handle.move_joint(handle.joint_list)
 
                         if handle.name == "get":
                             Get.get()
@@ -203,8 +212,9 @@ class MultiProcessHandle:
 
                         if handle.name == "start":
                             Start.start()
+                            self.robot_lock.release()
 
-
+                            # wait print done
 
             thread.exit_thread()
 

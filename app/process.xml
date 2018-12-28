@@ -4,37 +4,40 @@
       <coordidate joint1="0.000" joint2="0.000" joint3="0.000" joint4="0.000" joint5="0.000" joint6="0.000"/>
       <coordidate joint1="0.000" joint2="0.000" joint3="0.000" joint4="0.000" joint5="0.000" joint6="0.000"/>
    </go_home>
-   <assembly_line id="1" times="1">
+   <assembly_line id="1" times="10">
       <process name="PLATFORM">
-         <coordidate joint0="20" joint1="0.112233" joint2="0.112234" joint3="0.112235" joint4="0.112236" joint5="0.112237" joint6="0.112238"/>
+         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
          <get></get>
-         <coordidate joint0="20" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <coordidate joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
       </process>
       <process name="FDM">
-         <coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
          <put></put>
-         <coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
          <start></start>
       </process>
       <process name="CNC">
-         <coordidate joint0="25" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>
+         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
       </process>
    </assembly_line>
 
-   <!--<assembly_line id="2" times="1">-->
-      <!--<process name="PLATFORM">-->
-         <!--<coordidate joint0="20" joint1="0.112233" joint2="0.112234" joint3="0.112235" joint4="0.112236" joint5="0.112237" joint6="0.112238"/>-->
-         <!--<get></get>-->
-         <!--<coordidate joint0="20" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>-->
-      <!--</process>-->
-      <!--<process name="FDM">-->
-         <!--<coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>-->
-         <!--<put></put>-->
-         <!--<coordidate joint0="40" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>-->
-         <!--<start></start>-->
-      <!--</process>-->
-      <!--<process name="CNC">-->
-         <!--<coordidate joint0="25" joint1="0.112233" joint2="0.112233" joint3="0.112233" joint4="0.112233" joint5="0.112233" joint6="0.112233"/>-->
-      <!--</process>-->
-   <!--</assembly_line>-->
+   <assembly_line id="2" times="10">
+      <process name="PLATFORM">
+         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+         <get></get>
+         <coordidate joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+      </process>
+      <process name="FDM">
+         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+         <put></put>
+         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+         <start></start>
+      </process>
+      <process name="CNC">
+         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+      </process>
+   </assembly_line>
+
 </multi_process>
