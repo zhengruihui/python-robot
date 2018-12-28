@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a715c9b-7175-4bc0-acfe-c186de99199e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/python-robot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/python-robot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/process.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/process.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,14 +12,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.40317833">
+    <splitter split-orientation="horizontal" split-proportion="0.61624485">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1140">
-                  <caret line="112" column="14" lean-forward="true" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
+                <state relative-caret-position="250">
+                  <caret line="200" column="38" lean-forward="true" selection-start-line="200" selection-start-column="38" selection-end-line="200" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#43#56#0" expanded="true" />
+                    <element signature="e#403#1830#0" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -29,7 +31,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/mythread.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
+                <state relative-caret-position="476">
                   <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
                   <folding>
                     <element signature="e#0#16#0" expanded="true" />
@@ -45,8 +47,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/process.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+                <state relative-caret-position="255">
+                  <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
                 </state>
               </provider>
             </entry>
@@ -54,7 +56,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/robotcontrol.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
+                <state relative-caret-position="9503">
                   <caret line="564" column="17" selection-start-line="564" selection-start-column="17" selection-end-line="564" selection-end-column="17" />
                   <folding>
                     <element signature="e#38#49#0" expanded="true" />
@@ -94,8 +96,8 @@
         <option value="$PROJECT_DIR$/app/movies.xml" />
         <option value="$PROJECT_DIR$/app/multi-process.py" />
         <option value="$PROJECT_DIR$/app/robotcontrol.py" />
-        <option value="$PROJECT_DIR$/app/main.py" />
         <option value="$PROJECT_DIR$/app/mythread.py" />
+        <option value="$PROJECT_DIR$/app/main.py" />
         <option value="$PROJECT_DIR$/app/process.xml" />
       </list>
     </option>
@@ -114,7 +116,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -131,6 +132,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,7 +152,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.mythread">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="python-robot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -221,8 +223,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mythread" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.mythread" />
         <item itemvalue="Python.robotcontrol" />
       </list>
     </recent_temporary>
@@ -257,8 +259,8 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.329718" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32962137" />
       <window_info anchor="bottom" id="Python Console" order="9" />
-      <window_info active="true" anchor="bottom" x="1952" y="60" width="739" height="930" id="Run" order="10" visible="true" weight="0.21820062" />
-      <window_info anchor="bottom" x="71" y="49" width="1014" height="933" id="Debug" order="11" weight="0.3836608" />
+      <window_info active="true" anchor="bottom" x="1952" y="60" width="739" height="930" id="Run" order="10" visible="true" weight="0.10891089" />
+      <window_info anchor="bottom" x="71" y="49" width="1014" height="933" id="Debug" order="11" weight="0.21287128" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -338,7 +340,7 @@
     <entry file="file://C:/APP/Python/Lib/struct.py" />
     <entry file="file://$PROJECT_DIR$/app/mythread.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="476">
           <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
@@ -348,7 +350,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/robotcontrol.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="9503">
           <caret line="564" column="17" selection-start-line="564" selection-start-column="17" selection-end-line="564" selection-end-column="17" />
           <folding>
             <element signature="e#38#49#0" expanded="true" />
@@ -356,17 +358,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/main.py">
+    <entry file="file://$PROJECT_DIR$/app/process.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1140">
-          <caret line="112" column="14" lean-forward="true" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/process.xml">
+    <entry file="file://$PROJECT_DIR$/app/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+        <state relative-caret-position="250">
+          <caret line="200" column="38" lean-forward="true" selection-start-line="200" selection-start-column="38" selection-end-line="200" selection-end-column="38" />
+          <folding>
+            <element signature="e#43#56#0" expanded="true" />
+            <element signature="e#403#1830#0" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -6,7 +6,7 @@ import time
 import xml.sax
 import socket
 from struct import *
-from robotcontrol import *
+# from robotcontrol import *
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
@@ -69,50 +69,61 @@ class SocketManage:
         self.write_lock.release()
 
 
-class Get:
+class GetPlatform:
     def __init__(self):
         pass
 
-    @staticmethod
-    def get():
-        print "get"
 
-class Put:
+class GetPlatformHandle:
     def __init__(self):
         pass
 
-    @staticmethod
-    def put():
-        print "put"
+
+class PutPlatform:
+    def __init__(self):
+        pass
+
+
+class PutPlatformHandle:
+    def __init__(self):
+        pass
+
+
+class FDMPrint:
+    def __init__(self):
+        pass
+
+
+class FDMPrintHandle:
+    def __init__(self):
+        pass
+
 
 class Start:
     def __init__(self):
         pass
 
-    @staticmethod
-    def start():
-        print "start"
 
-
-class Coordidate:
+class End:
     def __init__(self):
         pass
 
 
-class CoordidateHandle:
+class Robot:
     def __init__(self):
-        self.robot = robot_init()
+        pass
+
+
+class RobotHandle:
+    def __init__(self):
+        pass
+        # self.robot = robot_init()
 
     def move_joint(self, joint_list):
-        joint_radian = joint_list[1:7]
-        logger.info("move joint to {0}".format(joint_radian))
-        self.robot.move_joint(joint_radian)
-
-
-
-class Process:
-    def __init__(self):
-        pass
+        print joint_list
+        # joint_radian = joint_list[1:7]
+        # logger.info("move joint to {0}".format(joint_radian))
+        # self.robot.move_joint(joint_radian)
 
 
 class AssemblyLine:
@@ -138,53 +149,62 @@ def parse_xml(xml_name, multi_process):
         assembly_line.id = assembly_line_xml.getAttribute("id")
         assembly_line.times = int(assembly_line_xml.getAttribute("times"))
         multi_process.assembly_line_list.append(assembly_line)
-        child_0_list = assembly_line_xml.childNodes
-        for child_0 in child_0_list:    # level 0
-            if child_0.nodeType == child_0.ELEMENT_NODE:
-                if child_0.nodeName == "process":
-                    process = Process()
-                    process.handle_list = []
-                    process.name = child_0.getAttribute("name")
-                    assembly_line.process_list.append(process)
-                    child_1_list = child_0.childNodes
-                    for child_1 in child_1_list:    # level 1
-                        if child_1.nodeType == child_1.ELEMENT_NODE:
-                            if child_1.nodeName == "coordidate":
-                                coordidate = Coordidate()
-                                coordidate.name = child_1.nodeName
-                                coordidate.joint_list = []
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint0")) / 57.2957805)
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint1")) / 57.2957805)
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint2")) / 57.2957805)
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint3")) / 57.2957805)
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint4")) / 57.2957805)
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint5")) / 57.2957805)
-                                coordidate.joint_list.append(float(child_1.getAttribute("joint6")) / 57.2957805)
+        child_list = assembly_line_xml.childNodes
+        for child in child_list:    # level 0
+            if child.nodeType == child.ELEMENT_NODE:
+                if child.nodeName == "start":
+                    start = Start()
+                    start.name = child.nodeName
+                    start.lock = child.getAttribute("lock")
+                    assembly_line.process_list.append(start)
 
-                                process.handle_list.append(coordidate)
+                if child.nodeName == "end":
+                    end = End()
+                    end.name = child.nodeName
+                    end.lock = child.getAttribute("lock")
+                    end.wait_type = child.getAttribute("wait_type")
+                    assembly_line.process_list.append(end)
 
-                            if child_1.nodeName == "get":
-                                get = Get()
-                                get.name = child_1.nodeName
-                                process.handle_list.append(get)
+                if child.nodeName == "robot":
+                    robot = Robot()
+                    robot.name = child.nodeName
+                    robot.joint_list = []
+                    robot.joint_list.append(float(child.getAttribute("joint0")))
+                    robot.joint_list.append(float(child.getAttribute("joint1")) / 57.2957805)
+                    robot.joint_list.append(float(child.getAttribute("joint2")) / 57.2957805)
+                    robot.joint_list.append(float(child.getAttribute("joint3")) / 57.2957805)
+                    robot.joint_list.append(float(child.getAttribute("joint4")) / 57.2957805)
+                    robot.joint_list.append(float(child.getAttribute("joint5")) / 57.2957805)
+                    robot.joint_list.append(float(child.getAttribute("joint6")) / 57.2957805)
 
-                            if child_1.nodeName == "put":
-                                put = Put()
-                                put.name = child_1.nodeName
-                                process.handle_list.append(put)
+                    assembly_line.process_list.append(robot)
 
-                            if child_1.nodeName == "start":
-                                start = Start()
-                                start.name = child_1.nodeName
-                                process.handle_list.append(start)
+                if child.nodeName == "get_platform":
+                    get_platform = GetPlatform()
+                    get_platform.name = child.nodeName
+                    assembly_line.process_list.append(get_platform)
+
+                if child.nodeName == "put_latform":
+                    put_latform = PutPlatform()
+                    put_latform.name = child.nodeName
+                    assembly_line.process_list.append(put_latform)
+
+                if child.nodeName == "fdm_print":
+                    fdm_print = FDMPrint()
+                    fdm_print.name = child.nodeName
+                    assembly_line.process_list.append(fdm_print)
+
     print "parse done"
 
 
 class MultiProcessHandle:
     def __init__(self, multi_process):
         self.multi_process = multi_process
-        self.robot_lock = thread.allocate()
-        self.coordidate_handle = CoordidateHandle()
+        self.thread_lock = thread.allocate()
+        self.robot_handle = RobotHandle()
+        self.fdm_print_handle = FDMPrintHandle()
+        self.get_platform_handle = GetPlatformHandle()
+        self.put_platform_handle = PutPlatformHandle()
 
         # 每条流水线一个线程
         for i in range(len(self.multi_process.assembly_line_list)):
@@ -198,25 +218,32 @@ class MultiProcessHandle:
             for i in range(assembly_line.times):
                 process_list = assembly_line.process_list
                 for process in process_list:
-                    handle_list = process.handle_lis
-                    for handle in handle_list:
-                        self.robot_lock.acquire()
-                        if handle.name == "coordidate":
-                            self.coordidate_handle.move_joint(handle.joint_list)
 
-                        if handle.name == "get":
-                            Get.get()
+                    if process.name == "start":
+                        print "start"
+                        if process.lock == "true":
+                            self.thread_lock.acquire()
 
-                        if handle.name == "put":
-                            Put.put()
+                    if process.name == "end":
+                        print "end"
+                        if process.lock == "false":
+                            self.thread_lock.release()
+                        if process.wait_type == "fdm_print":
+                            print "wait fdm_print"
 
-                        if handle.name == "start":
-                            Start.start()
-                            self.robot_lock.release()
+                    if process.name == "robot":
+                        self.robot_handle.move_joint(process.joint_list)
 
-                            # wait print done
+                    if process.name == "get_platform":
+                        print "get_platform"
 
-            thread.exit_thread()
+                    if process.name == "put_latform":
+                        print "put_latform"
+
+                    if process.name == "fdm_print":
+                        print "fdm_print"
+
+                thread.exit_thread()
 
 
 if __name__ == '__main__':
