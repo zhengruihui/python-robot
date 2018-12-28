@@ -1,43 +1,26 @@
 <multi_process name="dedibot">
-   <go_home>
-      <motion comment="地轨原点坐标">0.0</motion>
-      <coordidate joint1="0.000" joint2="0.000" joint3="0.000" joint4="0.000" joint5="0.000" joint6="0.000"/>
-      <coordidate joint1="0.000" joint2="0.000" joint3="0.000" joint4="0.000" joint5="0.000" joint6="0.000"/>
-   </go_home>
+
    <assembly_line id="1" times="10">
-      <process name="PLATFORM">
-         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-         <get></get>
-         <coordidate joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      </process>
-      <process name="FDM">
-         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-         <put></put>
-         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-         <start></start>
-      </process>
-      <process name="CNC">
-         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      </process>
+      <start lock="true" comment="获取答应平台"/>
+      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+      <get-platform></get-platform>
+      <robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+      <end lock="false" wait="false"/>
+
+      <start lock="true" comment="放置打印平台并打印"/>
+      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+      <put-platform></put-platform>
+      <robot joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+      <startprint></startprint>
+      <end lock="false" wait="true"/>
+
+
+      <start lock="true" comment="CNC与雾化处理"/>
+      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
+      <robot joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+      <end lock="false" wait="false"/>
+
    </assembly_line>
 
-   <assembly_line id="2" times="10">
-      <process name="PLATFORM">
-         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-         <get></get>
-         <coordidate joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      </process>
-      <process name="FDM">
-         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-         <put></put>
-         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-         <start></start>
-      </process>
-      <process name="CNC">
-         <coordidate joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-         <coordidate joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      </process>
-   </assembly_line>
 
 </multi_process>
