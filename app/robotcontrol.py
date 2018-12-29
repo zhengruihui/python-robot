@@ -2579,25 +2579,11 @@ def robot_init():
         else:
             # # 重新上电
             # robot.robot_shutdown()
-            # #
-            # # # 上电
+            # # 上电
             # robot.robot_startup()
-            #
+
             # # 设置碰撞等级
             # robot.set_collision_class(7)
-
-            # 设置工具端电源为１２ｖ
-            # robot.set_tool_power_type(RobotToolPowerType.OUT_12V)
-
-            # 设置工具端ＩＯ_0为输出
-            robot.set_tool_io_type(RobotToolIoAddr.TOOL_DIGITAL_IO_0, RobotToolDigitalIoDir.IO_OUT)
-
-            # 获取工具端ＩＯ_0当前状态
-            tool_io_status = robot.get_tool_io_status(RobotToolIoName.tool_io_0)
-            logger.info("tool_io_0={0}".format(tool_io_status))
-
-            # 设置工具端ＩＯ_0状态
-            robot.set_tool_io_status(RobotToolIoName.tool_io_0, 1)
 
             # 获取控制柜用户DI
             io_config = robot.get_board_io_config(RobotIOType.User_DI)
@@ -2611,9 +2597,12 @@ def robot_init():
             # 输出DO配置
             logger.info(io_config)
 
+            result = robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 0)
+
+            do_00_status = robot.get_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00)
+
             # 当前机械臂是否运行在联机模式
             logger.info("robot online mode is {0}".format(robot.is_online_mode()))
-
 
     except RobotError, e:
         logger.error("{0} robot Event:{1}".format(robot.get_local_time(), e))

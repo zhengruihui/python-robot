@@ -6,7 +6,7 @@ import time
 import xml.sax
 import socket
 from struct import *
-# from robotcontrol import *
+from robotcontrol import *
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
@@ -21,52 +21,45 @@ ip_aubot = "192.168.1.14"  # 机械手aubot的ip与端口
 port_aubot = 8899
 
 
-class SocketManage:
+class Messages:
     def __init__(self, read_ip="127.0.0.1", read_port=01234, write_ip="127.0.0.1", write_port=56789):
         self.read_ip = read_ip
         self.read_port = read_port
         self.write_ip = write_ip
         self.write_port = write_port
-        self.read_list = [0]
-        self.write_list = [0]
+        self.read_format = "c"
+        self.write_format = "c"
 
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.s.bind((read_ip, read_port))
-        self.read_lock = thread.allocate()
-        self.write_lock = thread.allocate()
+        self.lock = thread.allocate()
 
-        # 创建两个线程
+        # 创建线程
         try:
             thread.start_new_thread(self.read_thread, ())
-            thread.start_new_thread(self.write_thread, ())
-
         except:
             print "Error: unable to start thread"
 
     def read_thread(self):
         while True:
             read_data, read_addr = self.s.recvfrom(1024)
-            self.read_lock.acquire()
-            self.read_list = unpack('HHHHLf', read_data)
-            self.read_lock.release()
+            read_list = unpack(self.read_format, read_data)
+            self.read(read_list)
 
-    def write_thread(self):
-        while True:
-            self.write_lock.acquire()
-            time.sleep(1)
-            print "write_thread"
-            self.write_lock.release()
+    def read(self, read_list):
+        pass
 
-    def get_read_list(self):
-        self.read_lock.acquire()
-        read_list = self.read_list
-        self.read_lock.release()
-        return read_list
+    def write(self, write_list):
+        write_data = pack(self.write_format, *write_list)
+        self.s.sendto(write_data, (self.write_ip, self.write_port))
 
-    def set_write_list(self, write_list):
-        self.write_lock.acquire()
-        self.write_list = write_list
-        self.write_lock.release()
+
+
+
+
+class CNC:
+    def __init__(self):
+        pass
 
 
 class GetPlatform:
@@ -94,12 +87,47 @@ class FDMPrint:
         pass
 
 
-class FDMPrintHandle:
+class FDMPrintHandle(Messages):
     def __init__(self):
-        pass
+        Messages.__init__(self)
+        self.read_format = "BBBBB"
+        self.write_format = "BBB"
+        self.write_list = [0, 0, 0]
+        self.print_state_list = []
 
-    def pdm_print(self):
+    def read(self, read_list):
+        print read_list
+        self.lock.acquire()
+        if read_list[0] == 0:
+            if read_list[1] == 1:
+                print "start multi-process"
+            if read_list[1] == 0:
+                print "end multi-process"
+
+        if read_list[0] == 1:
+            for i in range(len(self.print_state_list)):
+                if read_list[2+i] == 1:
+                    self.print_state_list[0+i] = True
+                    print "fdm done %d" % i
+                else:
+                    self.print_state_list[0+i] = False
+
+        self.lock.release()
+
+    def finished(self, id):
+        self.lock.acquire()
+        state = self.print_state_list[id]
+        self.lock.release()
+        return state
+
+    def pdm_print(self, id):
+        self.write_list[0] = 1
+        self.write_list[1] = 2
+        self.write_list[2] = id
+        self.write(self.write_list)
+        self.print_state = False
         print "fdm_print"
+
 
 class Start:
     def __init__(self):
@@ -119,26 +147,37 @@ class Robot:
 class RobotHandle:
     def __init__(self):
         self.robot_thread = thread.allocate()
-        # self.robot = robot_init()
+        self.robot = robot_init()
 
     def move_joint(self, joint_list):
         self.robot_thread.acquire()
         print joint_list
-        # logger.info("move joint to {0}".format(joint_radian))
-        # self.robot.move_joint(oint_list[1:7])
+        self.robot.move_joint(joint_list[1:7])
         self.robot_thread.release()
 
     def get_platform(self):
         self.robot_thread.acquire()
+        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_02, 1)
         print "get_platform"
         self.robot_thread.release()
 
     def put_platform(self):
         self.robot_thread.acquire()
+        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_02, 0)
         print "put_platform"
-
         self.robot_thread.release()
 
+    def open_cnc(self):
+        self.robot_thread.acquire()
+        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 1)
+        print "open_cnc"
+        self.robot_thread.release()
+
+    def close_cnc(self):
+        self.robot_thread.acquire()
+        print "close_cnc"
+        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 0)
+        self.robot_thread.release()
 
 
 class AssemblyLine:
@@ -161,7 +200,7 @@ def parse_xml(xml_name, multi_process):
     for assembly_line_xml in assembly_line_xml_list:
         assembly_line = AssemblyLine()
         assembly_line.process_list = []
-        assembly_line.id = assembly_line_xml.getAttribute("id")
+        assembly_line.id = int(assembly_line_xml.getAttribute("id"))
         assembly_line.times = int(assembly_line_xml.getAttribute("times"))
         multi_process.assembly_line_list.append(assembly_line)
         child_list = assembly_line_xml.childNodes
@@ -209,6 +248,12 @@ def parse_xml(xml_name, multi_process):
                     fdm_print.name = child.nodeName
                     assembly_line.process_list.append(fdm_print)
 
+                if child.nodeName == "cnc":
+                    cnc = CNC()
+                    cnc.name = child.nodeName
+                    cnc.open = child.getAttribute("open")
+                    assembly_line.process_list.append(cnc)
+
     print "parse done"
 
 
@@ -225,6 +270,7 @@ class MultiProcessHandle:
         for i in range(len(self.multi_process.assembly_line_list)):
             try:
                 thread.start_new_thread(self.assembly_line_handle, (self.multi_process.assembly_line_list[i], ))
+                self.fdm_print_handle.print_state_list.append(False)
             except:
                 print "Error: unable to start thread"
 
@@ -233,7 +279,6 @@ class MultiProcessHandle:
             for i in range(assembly_line.times):
                 process_list = assembly_line.process_list
                 for process in process_list:
-
                     if process.name == "start":
                         print "start"
                         if process.lock == "true":
@@ -245,6 +290,8 @@ class MultiProcessHandle:
                             self.thread_lock.release()
                         if process.wait_type == "fdm_print":
                             print "wait fdm_print"
+                            while not self.fdm_print_handle.finished(assembly_line.id):
+                                pass
 
                     if process.name == "robot":
                         self.robot_handle.move_joint(process.joint_list)
@@ -256,9 +303,14 @@ class MultiProcessHandle:
                         self.robot_handle.put_platform()
 
                     if process.name == "fdm_print":
-                        self.fdm_print_handle.pdm_print()
+                        self.fdm_print_handle.pdm_print(assembly_line.id)
 
-                thread.exit_thread()
+                    if process.name == "cnc":
+                        if process.open == "true":
+                            self.robot_handle.open_cnc()
+                        if process.open == "false":
+                            self.robot_handle.close_cnc()
+            thread.exit_thread()
 
 
 if __name__ == '__main__':
