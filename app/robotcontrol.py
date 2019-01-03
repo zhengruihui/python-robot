@@ -13,7 +13,7 @@ logger = logging.getLogger()
 
 def logger_init():
     # Log等级总开关
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     # 创建log目录
     if not os.path.exists('./logfiles'):
@@ -27,17 +27,17 @@ def logger_init():
     fh = RotatingFileHandler(logfile, mode='a', maxBytes=1024*1024*50, backupCount=30)
 
     # 输出到file的log等级的开关
-    fh.setLevel(logging.INFO)
+    fh.setLevel(logging.DEBUG)
 
     # 再创建一个handler，用于输出到控制台
     ch = logging.StreamHandler()
 
     # 输出到console的log等级的开关
-    ch.setLevel(logging.INFO)
+    ch.setLevel(logging.DEBUG)
 
     # 定义handler的输出格式
     # formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
-    formatter = logging.Formatter("%(asctime)s [%(thread)u] %(levelname)s: %(message)s")
+    formatter = logging.Formatter("%(asctime)s [%(levelname)s ] - dhp log: %(message)s")
 
     # 为文件输出设定格式
     fh.setFormatter(formatter)
@@ -2596,10 +2596,6 @@ def robot_init():
 
             # 输出DO配置
             logger.info(io_config)
-
-            result = robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 0)
-
-            do_00_status = robot.get_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00)
 
             # 当前机械臂是否运行在联机模式
             logger.info("robot online mode is {0}".format(robot.is_online_mode()))

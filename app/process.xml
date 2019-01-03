@@ -1,6 +1,6 @@
 <multi_process name="dedibot">
 
-   <assembly_line id="0" times="10">
+   <assembly_line id="0" times="1">
       <start lock="true" comment="获取打印平台"/>
       <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
       <get_platform/>
@@ -10,7 +10,7 @@
       <robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
       <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
       <get_platform/>
-      <robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
+      <robot joint0="20" joint1="90" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
       <end lock="false" wait_type="none"/>
 
       <start lock="true" comment="放置打印平台并打印"/>
@@ -28,7 +28,8 @@
       <end lock="false" wait_type="none"/>
    </assembly_line>
 
-      <assembly_line id="1" times="10">
+
+   <assembly_line id="1" times="1">
       <start lock="true" comment="获取打印平台"/>
       <robot joint0="20" joint1="-90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
       <get_platform/>
