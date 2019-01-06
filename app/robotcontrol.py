@@ -2551,7 +2551,6 @@ if __name__ == '__main__':
 def robot_init():
     # 初始化logger
     logger_init()
-
     # 启动测试
     logger.info("{0} init beginning...".format(Auboi5Robot.get_local_time()))
 
@@ -2560,47 +2559,47 @@ def robot_init():
 
     # 创建机械臂控制类
     robot = Auboi5Robot()
-
-    # 创建上下文
-    handle = robot.create_context()
-
-    # 打印上下文
-    logger.info("robot.rshd={0}".format(handle))
-
-    try:
-
-        # 链接服务器
-        ip = '192.168.1.14'
-        port = 8899
-        result = robot.connect(ip, port)
-
-        if result != RobotErrorType.RobotError_SUCC:
-            logger.info("connect server{0}:{1} failed.".format(ip, port))
-        else:
-            # # 重新上电
-            # robot.robot_shutdown()
-            # # 上电
-            # robot.robot_startup()
-
-            # # 设置碰撞等级
-            # robot.set_collision_class(7)
-
-            # 获取控制柜用户DI
-            io_config = robot.get_board_io_config(RobotIOType.User_DI)
-
-            # 输出DI配置
-            logger.info(io_config)
-
-            # 获取控制柜用户DO
-            io_config = robot.get_board_io_config(RobotIOType.User_DO)
-
-            # 输出DO配置
-            logger.info(io_config)
-
-            # 当前机械臂是否运行在联机模式
-            logger.info("robot online mode is {0}".format(robot.is_online_mode()))
-
-    except RobotError, e:
-        logger.error("{0} robot Event:{1}".format(robot.get_local_time(), e))
-
+    #
+    # # 创建上下文
+    # handle = robot.create_context()
+    #
+    # # 打印上下文
+    # logger.info("robot.rshd={0}".format(handle))
+    #
+    # try:
+    #
+    #     # 链接服务器
+    #     ip = '192.168.1.14'
+    #     port = 8899
+    #     result = robot.connect(ip, port)
+    #
+    #     if result != RobotErrorType.RobotError_SUCC:
+    #         logger.info("connect server{0}:{1} failed.".format(ip, port))
+    #     else:
+    #         # # 重新上电
+    #         # robot.robot_shutdown()
+    #         # # 上电
+    #         # robot.robot_startup()
+    #
+    #         # # 设置碰撞等级
+    #         # robot.set_collision_class(7)
+    #
+    #         # 获取控制柜用户DI
+    #         io_config = robot.get_board_io_config(RobotIOType.User_DI)
+    #
+    #         # 输出DI配置
+    #         logger.info(io_config)
+    #
+    #         # 获取控制柜用户DO
+    #         io_config = robot.get_board_io_config(RobotIOType.User_DO)
+    #
+    #         # 输出DO配置
+    #         logger.info(io_config)
+    #
+    #         # 当前机械臂是否运行在联机模式
+    #         logger.info("robot online mode is {0}".format(robot.is_online_mode()))
+    #
+    # except RobotError, e:
+    #     logger.error("{0} robot Event:{1}".format(robot.get_local_time(), e))
+    #
     return robot
