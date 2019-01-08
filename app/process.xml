@@ -1,54 +1,35 @@
 <multi_process name="dedibot">
 
-   <assembly_line id="0" times="1">
-      <start lock="true" comment="获取打印平台"/>
-      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-      <get_platform/>
+   <assembly_line id="0" times="10">
+      <lock action="acquire" comment="获取打印平台"/>
+      <move_line x="0" y="100" z="0"/>
+      <!--<robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
+      <claw action="close"/>
+      <robot joint0="31.2005" joint1="-90.000000" joint2="30.000000" joint3="130.000000" joint4="8.000000" joint5="-90.000000" joint6="90.000000"/>
       <robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-      <get_platform/>
-      <robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-      <get_platform/>
-      <robot joint0="20" joint1="90" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      <end lock="false" wait_type="none"/>
+      <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="60.000000" joint4="0.000000" joint5="-90.000000" joint6="0.000000"/>
+      <cnc action="open"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="130.000000" joint4="11.000000" joint5="-90.000000" joint6="93.400000"/>
+      <cnc action="close"/>
+      <move_line x="0" y="0" z="-25"/>
+      <move_line x="0" y="-328.5" z="0"/>
+      <claw action="open"/>
+      <move_line x="0" y="0" z="26"/>
+      <claw action="close"/>
+      <move_line x="0" y="210" z="0"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="130.000000" joint4="11.000000" joint5="-90.000000" joint6="93.400000"/>
+      <move_line x="0" y="-328.5" z="0"/>
+      <claw action="open"/>
+      <move_line x="0" y="0" z="-25"/>
+      <move_line x="0" y="280" z="0"/>
+      <lock action="release"/>
 
-      <start lock="true" comment="放置打印平台并打印"/>
-      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-      <put_latform/>
-      <robot joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      <fdm_print/>
-      <end lock="false" wait_type="fdm_print"/>
-
-      <start lock="true" comment="CNC与雾化处理"/>
-      <robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>
-      <cnc open="true"/>
-      <robot joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      <cnc open="false"/>
-      <end lock="false" wait_type="none"/>
+      <!--<lock action="acquire" comment="CNC与雾化处理"/>-->
+      <!--<robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>-->
+      <!--<cnc action="open"/>-->
+      <!--<robot joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
+      <!--<cnc action="close"/>-->
+      <!--<lock action="release"/>-->
    </assembly_line>
-
-
-   <!--<assembly_line id="1" times="3">-->
-      <!--<start lock="true" comment="获取打印平台"/>-->
-      <!--<robot joint0="30" joint1="-90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>-->
-      <!--<get_platform/>-->
-      <!--<robot joint0="30" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
-      <!--<end lock="false" wait_type="none"/>-->
-
-      <!--<start lock="true" comment="放置打印平台并打印"/>-->
-      <!--<robot joint0="30" joint1="-90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>-->
-      <!--<put_latform/>-->
-      <!--<robot joint0="30" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
-      <!--<fdm_print/>-->
-      <!--<end lock="false" wait_type="fdm_print"/>-->
-
-      <!--<start lock="true" comment="CNC与雾化处理"/>-->
-      <!--<robot joint0="30" joint1="-90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>-->
-      <!--<cnc open="true"/>-->
-      <!--<robot joint0="30" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
-      <!--<cnc open="false"/>-->
-      <!--<end lock="false" wait_type="none"/>-->
-   <!--</assembly_line>-->
 
 </multi_process>

@@ -5,12 +5,7 @@ from xml.dom.minidom import parse
 import xml.dom.minidom
 
 
-class PutPlatform:
-    def __init__(self):
-        pass
-
-
-class FDMPrint:
+class FDM:
     def __init__(self):
         pass
 
@@ -20,17 +15,12 @@ class CNC:
         pass
 
 
-class GetPlatform:
+class Claw:
     def __init__(self):
         pass
 
 
-class Start:
-    def __init__(self):
-        pass
-
-
-class End:
+class Lock:
     def __init__(self):
         pass
 
@@ -39,6 +29,9 @@ class Robot:
     def __init__(self):
         pass
 
+class MoveLine:
+    def __init__(self):
+        pass
 
 class AssemblyLine:
     def __init__(self):
@@ -61,30 +54,32 @@ def parse_xml(xml_name):
     for assembly_line_xml in assembly_line_xml_list:
         assembly_line = AssemblyLine()
         assembly_line.process_list = []
+        assembly_line.state = 0
         assembly_line.id = int(assembly_line_xml.getAttribute("id"))
         assembly_line.times = int(assembly_line_xml.getAttribute("times"))
         multi_process.assembly_line_list.append(assembly_line)
         child_list = assembly_line_xml.childNodes
         for child in child_list:    # level 0
             if child.nodeType == child.ELEMENT_NODE:
-                if child.nodeName == "start":
-                    start = Start()
-                    start.name = child.nodeName
-                    start.lock = child.getAttribute("lock")
-                    assembly_line.process_list.append(start)
+                if child.nodeName == "lock":
+                    lock = Lock()
+                    lock.name = child.nodeName
+                    lock.action = child.getAttribute("action")
+                    assembly_line.process_list.append(lock)
 
-                if child.nodeName == "end":
-                    end = End()
-                    end.name = child.nodeName
-                    end.lock = child.getAttribute("lock")
-                    end.wait_type = child.getAttribute("wait_type")
-                    assembly_line.process_list.append(end)
+                if child.nodeName == "move_line":
+                    move_line = MoveLine()
+                    move_line.name = child.nodeName
+                    move_line.pos_list = []
+                    move_line.pos_list.append(float(child.getAttribute("x")))
+                    move_line.pos_list.append(float(child.getAttribute("y")))
+                    move_line.pos_list.append(float(child.getAttribute("z")))
+                    assembly_line.process_list.append(move_line)
 
                 if child.nodeName == "robot":
                     robot = Robot()
                     robot.name = child.nodeName
                     robot.joint_list = []
-                    robot.joint_list.append("joint")
                     robot.joint_list.append(float(child.getAttribute("joint0")))
                     robot.joint_list.append(float(child.getAttribute("joint1")) / 57.2957805)
                     robot.joint_list.append(float(child.getAttribute("joint2")) / 57.2957805)
@@ -95,25 +90,22 @@ def parse_xml(xml_name):
 
                     assembly_line.process_list.append(robot)
 
-                if child.nodeName == "get_platform":
-                    get_platform = GetPlatform()
-                    get_platform.name = child.nodeName
-                    assembly_line.process_list.append(get_platform)
+                if child.nodeName == "claw":
+                    claw = Claw()
+                    claw.name = child.nodeName
+                    claw.action = child.getAttribute("action")
+                    assembly_line.process_list.append(claw)
 
-                if child.nodeName == "put_latform":
-                    put_latform = PutPlatform()
-                    put_latform.name = child.nodeName
-                    assembly_line.process_list.append(put_latform)
-
-                if child.nodeName == "fdm_print":
-                    fdm_print = FDMPrint()
-                    fdm_print.name = child.nodeName
-                    assembly_line.process_list.append(fdm_print)
+                if child.nodeName == "fdm":
+                    fdm = FDM()
+                    fdm.name = child.nodeName
+                    fdm.action = child.getAttribute("action")
+                    assembly_line.process_list.append(fdm)
 
                 if child.nodeName == "cnc":
                     cnc = CNC()
                     cnc.name = child.nodeName
-                    cnc.open = child.getAttribute("open")
+                    cnc.action = child.getAttribute("action")
                     assembly_line.process_list.append(cnc)
     return multi_process
 
