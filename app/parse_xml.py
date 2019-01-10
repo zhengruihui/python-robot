@@ -6,13 +6,10 @@ import xml.dom.minidom
 
 
 class FDM:
-<<<<<<< HEAD
     def __init__(self):
         pass
 
 class Motion:
-=======
->>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
     def __init__(self):
         pass
 
@@ -77,7 +74,6 @@ def parse_xml(xml_name):
                     move_line = MoveLine()
                     move_line.name = child.nodeName
                     move_line.pos_list = []
-<<<<<<< HEAD
                     move_line.pos_list.append(float(child.getAttribute("x")) / 1000)
                     move_line.pos_list.append(float(child.getAttribute("y")) / 1000)
                     move_line.pos_list.append(float(child.getAttribute("z")) / 1000)
@@ -91,12 +87,10 @@ def parse_xml(xml_name):
                     motion.axis_list.append(float(child.getAttribute("y")))
                     motion.action = child.getAttribute("action")
                     assembly_line.process_list.append(motion)
-=======
                     move_line.pos_list.append(float(child.getAttribute("x")))
                     move_line.pos_list.append(float(child.getAttribute("y")))
                     move_line.pos_list.append(float(child.getAttribute("z")))
                     assembly_line.process_list.append(move_line)
->>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
 
                 if child.nodeName == "robot":
                     robot = Robot()

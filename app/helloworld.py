@@ -26,7 +26,6 @@ INDEX_CLAW_CLOSE_FLAG =6
 INDEX_FDM_FLAG = 7
 INDEX_FDM_ID = 10
 INDEX_FDM_STATE = 13
-<<<<<<< HEAD
 INDEX_POS_FLAG = 17
 INDEX_MOTIONX_FLAG = 18
 INDEX_MOTIONY_FLAG = 19
@@ -304,7 +303,6 @@ def protocol_process(share_memory):
                 pass
             share_memory[INDEX_RECV_FLAG] = CLEAR
 
-=======
 INDEX_POS_FLAG = 14
 
 INDEX_RECV_DATA = 20
@@ -535,7 +533,6 @@ def protocol_process(share_memory):
                 pass
             share_memory[INDEX_RECV_FLAG] = CLEAR
 
->>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
 def robot_process(share_memory):
     robot_handle = RobotHandle()
     while True:
@@ -570,11 +567,7 @@ if __name__ == '__main__':
     manager = Manager()
     share_memory = manager.list()
 
-<<<<<<< HEAD
     for i in range(25):
-=======
-    for i in range(20):
->>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
         share_memory.append(CLEAR)
 
     share_memory.append(recv_data)
