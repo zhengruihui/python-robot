@@ -1,5 +1,39 @@
 <multi_process name="dedibot">
 
+<<<<<<< HEAD
+   <assembly_line id="0" times="2">
+      <lock action="acquire"/>
+      <claw action="open"/>
+      <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="90.000000" joint4="-30.000000" joint5="-90.000000" joint6="90.00000"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="388.84898008734875"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>
+      <claw action="open"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="438.20344608262460"/>
+      <claw action="close"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="438.20344608262460"/>
+      <claw action="open"/>
+      <lock action="release"/>
+
+   </assembly_line>
+
+   <!--<assembly_line id="1" times="10">-->
+      <!--<lock action="acquire"/>-->
+      <!--<claw action="open"/>-->
+      <!--<move_line x="-118.96865240727046" y="-170.5580682043296" z="388.84898008734875"/>-->
+      <!--<move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>-->
+      <!--<claw action="open"/>-->
+      <!--<move_line x="-118.96865240727046" y="-550.0401109474463" z="438.20344608262460"/>-->
+      <!--<claw action="close"/>-->
+      <!--<move_line x="-118.96865240727046" y="-220.5580682043296" z="438.20344608262460"/>-->
+      <!--<claw action="open"/>-->
+      <!--<lock action="release"/>-->
+
+   <!--</assembly_line>-->
+
+
+
+=======
    <assembly_line id="0" times="10">
       <lock action="acquire" comment="获取打印平台"/>
       <move_line x="0" y="100" z="0"/>
@@ -32,4 +66,5 @@
       <!--<lock action="release"/>-->
    </assembly_line>
 
+>>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
 </multi_process>

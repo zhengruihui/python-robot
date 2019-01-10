@@ -2602,6 +2602,24 @@ def robot_init():
             # 输出DO配置
             logger.info(io_config)
 
+<<<<<<< HEAD
+            # joint_radian = [-1.5706826448440552, 0.4459221661090851, 2.4340925216674805, 0.43544262647628784, -1.5708329677581787, 1.6299799680709839]
+            # robot.move_line(joint_radian)
+            # current_pos = robot.get_current_waypoint()
+            # logger.info(current_pos)
+            # logger.info(current_pos)
+            # current_pos['pos'][2] += -0.05
+            # ik_result = robot.inverse_kin(current_pos['joint'], current_pos['pos'], current_pos['ori'])
+            # # logger.info(ik_result)
+            # joint_radian = ik_result['joint']
+            # robot.move_line(joint_radian)
+            # current_pos = robot.get_current_waypoint()
+            # logger.info(current_pos)
+            # logger.info(current_pos)
+
+
+=======
+>>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
     except RobotError, e:
         logger.error("{0} robot Event:{1}".format(robot.get_local_time(), e))
 
