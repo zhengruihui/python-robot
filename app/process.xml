@@ -1,11 +1,25 @@
 <multi_process name="dedibot">
 
-<<<<<<< HEAD
-   <assembly_line id="0" times="2">
+   <assembly_line id="0" times="1">
       <lock action="acquire"/>
       <claw action="open"/>
+      <motion action="movex" x="500" y="0"/>
+      <claw action="close"/>
+      <motion action="movex" x="25" y="0"/>
       <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
-      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="90.000000" joint4="-30.000000" joint5="-90.000000" joint6="90.00000"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="90.000000" joint4="-30.000000" joint5="-90.000000" joint6="91.957248"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="438.20344608262460"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="438.20344608262460"/>
+      <claw action="open"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>
+      <fdm action="start"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="388.84898008734875"/>
+      <lock action="release"/>
+
+      <lock action="acquire"/>
+      <motion action="movex" x="25" y="0"/>
+      <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="90.000000" joint4="-30.000000" joint5="-90.000000" joint6="91.957248"/>
       <move_line x="-118.96865240727046" y="-220.5580682043296" z="388.84898008734875"/>
       <move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>
       <claw action="open"/>
@@ -17,54 +31,66 @@
 
    </assembly_line>
 
-   <!--<assembly_line id="1" times="10">-->
-      <!--<lock action="acquire"/>-->
-      <!--<claw action="open"/>-->
-      <!--<move_line x="-118.96865240727046" y="-170.5580682043296" z="388.84898008734875"/>-->
-      <!--<move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>-->
-      <!--<claw action="open"/>-->
-      <!--<move_line x="-118.96865240727046" y="-550.0401109474463" z="438.20344608262460"/>-->
-      <!--<claw action="close"/>-->
-      <!--<move_line x="-118.96865240727046" y="-220.5580682043296" z="438.20344608262460"/>-->
-      <!--<claw action="open"/>-->
-      <!--<lock action="release"/>-->
-
-   <!--</assembly_line>-->
-
-
-
-=======
-   <assembly_line id="0" times="10">
-      <lock action="acquire" comment="获取打印平台"/>
-      <move_line x="0" y="100" z="0"/>
-      <!--<robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
-      <claw action="close"/>
-      <robot joint0="31.2005" joint1="-90.000000" joint2="30.000000" joint3="130.000000" joint4="8.000000" joint5="-90.000000" joint6="90.000000"/>
-      <robot joint0="20" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>
-      <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="60.000000" joint4="0.000000" joint5="-90.000000" joint6="0.000000"/>
-      <cnc action="open"/>
-      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="130.000000" joint4="11.000000" joint5="-90.000000" joint6="93.400000"/>
-      <cnc action="close"/>
-      <move_line x="0" y="0" z="-25"/>
-      <move_line x="0" y="-328.5" z="0"/>
+   <assembly_line id="1" times="1">
+      <lock action="acquire"/>
       <claw action="open"/>
-      <move_line x="0" y="0" z="26"/>
+      <motion action="movex" x="500" y="0"/>
       <claw action="close"/>
-      <move_line x="0" y="210" z="0"/>
-      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="130.000000" joint4="11.000000" joint5="-90.000000" joint6="93.400000"/>
-      <move_line x="0" y="-328.5" z="0"/>
+      <motion action="movex" x="304.3" y="0"/>
+      <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="90.000000" joint4="-30.000000" joint5="-90.000000" joint6="91.957248"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="438.20344608262460"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="438.20344608262460"/>
       <claw action="open"/>
-      <move_line x="0" y="0" z="-25"/>
-      <move_line x="0" y="280" z="0"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>
+      <fdm action="start"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="388.84898008734875"/>
       <lock action="release"/>
 
-      <!--<lock action="acquire" comment="CNC与雾化处理"/>-->
-      <!--<robot joint0="20" joint1="90.617670" joint2="-54.296" joint3="18.04" joint4="70.78" joint5="85.212" joint6="-0.000630"/>-->
-      <!--<cnc action="open"/>-->
-      <!--<robot joint0="40" joint1="0" joint2="0" joint3="0" joint4="0" joint5="0" joint6="0"/>-->
-      <!--<cnc action="close"/>-->
-      <!--<lock action="release"/>-->
+      <lock action="acquire"/>
+      <motion action="movex" x="304.3" y="0"/>
+      <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
+      <robot joint0="20" joint1="-90.000000" joint2="30.000000" joint3="90.000000" joint4="-30.000000" joint5="-90.000000" joint6="91.957248"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="388.84898008734875"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="388.84898008734875"/>
+      <claw action="open"/>
+      <move_line x="-118.96865240727046" y="-550.0401109474463" z="438.20344608262460"/>
+      <claw action="close"/>
+      <move_line x="-118.96865240727046" y="-220.5580682043296" z="438.20344608262460"/>
+      <claw action="open"/>
+      <lock action="release"/>
    </assembly_line>
 
->>>>>>> 84e1d9d1d28168b78ac64282519a57a368d17c85
+
+   <assembly_line id="2" times="1">
+      <lock action="acquire"/>
+      <claw action="open"/>
+      <motion action="movex" x="500" y="0"/>
+      <claw action="close"/>
+      <motion action="movex" x="346.8" y="0"/>
+      <robot joint0="20" joint1="90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="0.000000" joint6="0.00000"/>
+      <robot joint0="20" joint1="90.000000" joint2="-30.000000" joint3="-150.000000" joint4="-30.000000" joint5="90.000000" joint6="91.957248"/>
+      <move_line x="119.0000000000000" y="-191.6330000000000" z="436.3080000000000"/>
+      <move_line x="119.0000000000000" y="-544.5460000000000" z="436.3080000000000"/>
+      <claw action="open"/>
+      <move_line x="119.0000000000000" y="-544.5460000000000" z="353.1170000000000"/>
+      <fdm action="start"/>
+      <move_line x="119.0000000000000" y="-191.6330000000000" z="353.1170000000000"/>
+      <lock action="release"/>
+
+      <lock action="acquire"/>
+      <motion action="movex" x="346.8" y="0"/>
+      <robot joint0="20" joint1="90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="0.000000" joint6="0.00000"/>
+      <robot joint0="20" joint1="90.000000" joint2="-30.000000" joint3="-150.000000" joint4="-30.000000" joint5="90.000000" joint6="91.957248"/>
+      <move_line x="119.0000000000000" y="-191.6330000000000" z="353.1170000000000"/>
+      <move_line x="119.0000000000000" y="-547.8020000000000" z="353.1170000000000"/>
+      <claw action="open"/>
+      <move_line x="119.0000000000000" y="-547.8020000000000" z="438.20344608262460"/>
+      <claw action="close"/>
+      <move_line x="119.0000000000000" y="-191.6330000000000" z="438.20344608262460"/>
+      <claw action="open"/>
+      <lock action="release"/>
+
+   </assembly_line>
+
 </multi_process>

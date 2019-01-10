@@ -87,10 +87,6 @@ def parse_xml(xml_name):
                     motion.axis_list.append(float(child.getAttribute("y")))
                     motion.action = child.getAttribute("action")
                     assembly_line.process_list.append(motion)
-                    move_line.pos_list.append(float(child.getAttribute("x")))
-                    move_line.pos_list.append(float(child.getAttribute("y")))
-                    move_line.pos_list.append(float(child.getAttribute("z")))
-                    assembly_line.process_list.append(move_line)
 
                 if child.nodeName == "robot":
                     robot = Robot()
