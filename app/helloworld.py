@@ -40,10 +40,12 @@ INDEX_RECV_DATA = 25
 INDEX_SEND_DATA = 26
 INDEX_JOINT_DATA = 27
 INDEX_POS_DATA = 28
+INDEX_LINE_STATE = 29
 recv_data = [0, 0, 0, 0, 0]
 send_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 joint_data = [0, 0, 0, 0, 0, 0, 0]
 pos_data = [0, 0, 0]
+line_state = [0, 0, 0]
 
 class MultiProcessHandle:
     def __init__(self, multi_process, share_memory):
@@ -239,13 +241,13 @@ class RobotHandle:
 
     def open_claw(self):
         self.robot_lock.acquire()
-        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 1)
+        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 0)
         logger.info("open_claw")
         self.robot_lock.release()
 
     def close_claw(self):
         self.robot_lock.acquire()
-        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 0)
+        self.robot.set_board_io_status(RobotIOType.User_DO, RobotUserIoName.user_do_00, 1)
         logger.info("close_claw")
         self.robot_lock.release()
 
@@ -349,6 +351,7 @@ if __name__ == '__main__':
     share_memory.append(send_data)
     share_memory.append(joint_data)
     share_memory.append(pos_data)
+    share_memory.append(line_state)
 
     process_robot = Process(target=robot_process, args=(share_memory, ))
     process_robot.start()

@@ -3,7 +3,7 @@
    <assembly_line id="0" times="1">
       <lock action="acquire"/>
       <claw action="open"/>
-      <motion action="movex" x="500" y="0"/>
+      <motion action="movex" x="1800" y="0"/>
       <claw action="close"/>
       <motion action="movex" x="25" y="0"/>
       <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
@@ -34,7 +34,7 @@
    <assembly_line id="1" times="1">
       <lock action="acquire"/>
       <claw action="open"/>
-      <motion action="movex" x="500" y="0"/>
+      <motion action="movex" x="1800" y="0"/>
       <claw action="close"/>
       <motion action="movex" x="304.3" y="0"/>
       <robot joint0="20" joint1="-90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="90.000000" joint6="0.00000"/>
@@ -65,7 +65,7 @@
    <assembly_line id="2" times="1">
       <lock action="acquire"/>
       <claw action="open"/>
-      <motion action="movex" x="500" y="0"/>
+      <motion action="movex" x="1800" y="0"/>
       <claw action="close"/>
       <motion action="movex" x="346.8" y="0"/>
       <robot joint0="20" joint1="90.000000" joint2="0.000000" joint3="0.000000" joint4="0.000000" joint5="0.000000" joint6="0.00000"/>
@@ -94,3 +94,6 @@
    </assembly_line>
 
 </multi_process>
+
+<!--1413
+-->
